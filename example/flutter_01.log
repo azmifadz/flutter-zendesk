@@ -1,0 +1,87 @@
+Flutter crash report; please file at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter --no-color run --machine --track-widget-creation --device-id=36FE4CF5-FDC5-40F8-8383-C7DA0C2AB3DB lib/main.dart
+
+## exception
+
+RpcException: JSON-RPC error -32000: Service protocol could not handle or find a handler for the requested method.
+
+```
+package:json_rpc_2/src/client.dart 110:64         Client.sendRequest
+package:json_rpc_2/src/peer.dart 79:15            Peer.sendRequest
+package:flutter_tools/src/vmservice.dart 316:13   VMService._sendRequest
+package:flutter_tools/src/vmservice.dart 851:60   VM.invokeRpcRaw
+===== asynchronous gap ===========================
+package:flutter_tools/src/vmservice.dart 872:49   VM.invokeRpc
+===== asynchronous gap ===========================
+package:flutter_tools/src/vmservice.dart 941:12   VM.runInView
+package:flutter_tools/src/vmservice.dart 1455:20  FlutterView.runFromSource
+===== asynchronous gap ===========================
+package:flutter_tools/src/run_hot.dart 372:24     HotRunner._launchInView
+package:flutter_tools/src/run_hot.dart 387:19     HotRunner._launchFromDevFS
+dart:async-patch/async_patch.dart 49:6            _AsyncAwaitCompleter.start
+package:flutter_tools/src/run_hot.dart 378:32     HotRunner._launchFromDevFS
+package:flutter_tools/src/run_hot.dart 458:11     HotRunner._restartFromSources
+dart:async-patch/async_patch.dart 77:64           _asyncThenWrapperHelper.<fn>
+dart:async/zone.dart 1132:38                      _rootRunUnary
+dart:async/zone.dart 1029:19                      _CustomZone.runUnary
+dart:async/future_impl.dart 126:18                _FutureListener.handleValue
+dart:async/future_impl.dart 639:45                Future._propagateToListeners.handleValueCallback
+dart:async/future_impl.dart 668:32                Future._propagateToListeners
+dart:async/future_impl.dart 483:5                 Future._completeWithValue
+dart:async/future.dart 400:22                     Future.wait.<fn>
+dart:async/zone.dart 1132:38                      _rootRunUnary
+dart:async/zone.dart 1029:19                      _CustomZone.runUnary
+dart:async/future_impl.dart 126:18                _FutureListener.handleValue
+dart:async/future_impl.dart 639:45                Future._propagateToListeners.handleValueCallback
+dart:async/future_impl.dart 668:32                Future._propagateToListeners
+dart:async/future_impl.dart 483:5                 Future._completeWithValue
+dart:async/future_impl.dart 513:7                 Future._asyncComplete.<fn>
+dart:async/zone.dart 1124:13                      _rootRun
+dart:async/zone.dart 1021:19                      _CustomZone.run
+dart:async/zone.dart 923:7                        _CustomZone.runGuarded
+dart:async/zone.dart 963:23                       _CustomZone.bindCallbackGuarded.<fn>
+dart:async/schedule_microtask.dart 41:21          _microtaskLoop
+dart:async/schedule_microtask.dart 50:5           _startMicrotaskLoop
+dart:isolate-patch/isolate_patch.dart 116:13      _runPendingImmediateCallback
+dart:isolate-patch/isolate_patch.dart 173:5       _RawReceivePortImpl._handleMessage
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel stable, v1.7.8+hotfix.3, on Mac OS X 10.14.5 18F132, locale en-MY)
+    • Flutter version 1.7.8+hotfix.3 at /Applications/flutter
+    • Framework revision b712a172f9 (6 weeks ago), 2019-07-09 13:14:38 -0700
+    • Engine revision 54ad777fd2
+    • Dart version 2.4.0
+
+[✓] Android toolchain - develop for Android devices (Android SDK version 28.0.3)
+    • Android SDK at /Users/goget/Library/Android/sdk
+    • Android NDK location not configured (optional; useful for native profiling support)
+    • Platform android-28, build-tools 28.0.3
+    • Java binary at: /Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b01)
+    • All Android licenses accepted.
+
+[✓] Xcode - develop for iOS and macOS (Xcode 10.3)
+    • Xcode at /Applications/Xcode.app/Contents/Developer
+    • Xcode 10.3, Build version 10G8
+    • CocoaPods version 1.6.0
+
+[✓] iOS tools - develop for iOS devices
+    • ios-deploy 1.9.4
+
+[✓] Android Studio (version 3.4)
+    • Android Studio at /Applications/Android Studio.app/Contents
+    • Flutter plugin version 36.1.1
+    • Dart plugin version 183.6270
+    • Java version OpenJDK Runtime Environment (build 1.8.0_152-release-1343-b01)
+
+[✓] Connected device (1 available)
+    • iPhone Xʀ • 36FE4CF5-FDC5-40F8-8383-C7DA0C2AB3DB • ios • com.apple.CoreSimulator.SimRuntime.iOS-12-4 (simulator)
+
+• No issues found!
+```

@@ -1,14 +1,32 @@
 #import "ZendeskPlugin.h"
 
 #import <ZDCChat/ZDCChat.h>
+@import ZendeskSDK;
+@import ZendeskCoreSDK;
 
-@implementation ZendeskPlugin
+@implementation ZendeskPlugin{
+    UINavigationController *_viewController;
+}
+
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"com.codeheadlabs.zendesk"
             binaryMessenger:[registrar messenger]];
-  ZendeskPlugin* instance = [[ZendeskPlugin alloc] init];
+
+  UIViewController *viewController =
+        [UIApplication sharedApplication].delegate.window.rootViewController;
+
+  ZendeskPlugin* instance = [[ZendeskPlugin alloc] initWithViewController:viewController];
   [registrar addMethodCallDelegate:instance channel:channel];
+
+}
+
+- (instancetype)initWithViewController:(UINavigationController *)viewController {
+  self = [super init];
+  if (self) {
+    _viewController = viewController;
+  }
+  return self;
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -35,8 +53,28 @@
       }];
       result(@(true));
   } else if ([@"startChat" isEqualToString:call.method]) {
-    [ZDCChat startChat:nil];
+      [ZDCChat startChat:nil];
+      result(@(true));
+  } else if ([@"initSupportSDK" isEqualToString:call.method]) {
+    
+      NSString *appId = call.arguments[@"appId"];
+      NSString *clientId = call.arguments[@"clientId"];
+      NSString *url = call.arguments[@"url"];
+      
+      [ZDKZendesk initializeWithAppId:appId clientId:clientId zendeskUrl:url];
+      [ZDKSupport initializeWithZendesk:[ZDKZendesk instance]];
+      
+      id<ZDKObjCIdentity> userIdentity = [[ZDKObjCAnonymous alloc] initWithName:nil email:nil];
+      [[ZDKZendesk instance] setIdentity:userIdentity];
+      [ZDKCoreLogger setEnabled:YES];
+      [ZDKCoreLogger setLogLevel:ZDKLogLevelDebug];
     result(@(true));
+  } else if ([@"startSupportSDK" isEqualToString:call.method]) {
+    
+    UIViewController *helpCenter = [ZDKHelpCenterUi buildHelpCenterOverviewUiWithConfigs:@[]];
+    UINavigationController *myNavigation = [[UINavigationController alloc] initWithRootViewController:helpCenter];
+    [_viewController presentViewController:myNavigation animated:YES completion:nil];
+
   } else {
     result(FlutterMethodNotImplemented);
   }

@@ -20,22 +20,44 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initZendesk();
+    initSupportSDK();
   }
 
   // Zendesk is asynchronous, so we initialize in an async method.
   Future<void> initZendesk() async {
     zendesk.init(ZendeskAccountKey).then((r) {
-	  print('init finished');
-	}).catchError((e) {
-	  print('failed with error $e');
-	});
+      print('init finished');
+    }).catchError((e) {
+      print('failed with error $e');
+    });
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
 
-	// But we aren't calling setState, so the above point is rather moot now.
+    // But we aren't calling setState, so the above point is rather moot now.
+  }
+
+  // Zendesk is asynchronous, so we initialize in an async method.
+  Future<void> initSupportSDK() async {
+    zendesk
+        .initSupportSDK(
+            '<appId>',
+            '<clientId>',
+            '<url>')
+        .then((r) {
+      print('init support sdk finished');
+    }).catchError((e) {
+      print('failed with error $e');
+    });
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    // But we aren't calling setState, so the above point is rather moot now.
   }
 
   @override
@@ -51,24 +73,36 @@ class _MyAppState extends State<MyApp> {
               RaisedButton(
                 child: Text('Set User Info'),
                 onPressed: () async {
-                  zendesk.setVisitorInfo(
+                  zendesk
+                      .setVisitorInfo(
                     name: 'My Name',
-					phoneNumber: '323-555-1212',
-                  ).then((r) {
-				    print('setVisitorInfo finished');
-				  }).catchError((e) {
-				    print('error $e');
-				  });
+                    phoneNumber: '323-555-1212',
+                  )
+                      .then((r) {
+                    print('setVisitorInfo finished');
+                  }).catchError((e) {
+                    print('error $e');
+                  });
                 },
               ),
               RaisedButton(
                 child: Text('Start Chat'),
                 onPressed: () async {
                   zendesk.startChat().then((r) {
-				    print('startChat finished');
-				  }).catchError((e) {
-				    print('error $e');
-				  });
+                    print('startChat finished');
+                  }).catchError((e) {
+                    print('error $e');
+                  });
+                },
+              ),
+              RaisedButton(
+                child: Text('Start Support SDK'),
+                onPressed: () async {
+                  zendesk.startSupportSDK().then((r) {
+                    print('startSupportSDK finished');
+                  }).catchError((e) {
+                    print('error $e');
+                  });
                 },
               ),
             ],
