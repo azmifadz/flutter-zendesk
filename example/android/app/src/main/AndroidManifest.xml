@@ -35,5 +35,17 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="zendesk.support.guide.HelpCenterActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <activity android:name="zendesk.support.guide.ViewArticleActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <activity android:name="zendesk.support.requestlist.RequestListActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
+        <activity android:name="zendesk.support.request.RequestActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
     </application>
 </manifest>
