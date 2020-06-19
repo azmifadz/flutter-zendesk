@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
+import 'package:zendesk/category.dart';
 
 class Zendesk {
   static const MethodChannel _channel =
@@ -35,5 +36,28 @@ class Zendesk {
 
   Future<void> startSupportSDK() async {
     await _channel.invokeMethod('startSupportSDK');
+  }
+
+  Future<List<String>> handleListCallBack() async {
+    List<String> list = List<String>.from(await _channel.invokeMethod('helpCallback'));
+
+
+    print('handleListCallBack');
+    for (String cat in list) {
+
+      print(cat);
+    }
+
+    return list;
+  }
+
+  List<dynamic> phoneNumbersList = <dynamic>[];
+
+  Future<List<String>> getList() async {
+    phoneNumbersList = await _channel.invokeMethod('list');
+    print(phoneNumbersList[0]);
+    print(phoneNumbersList[1]);
+    print(phoneNumbersList[2]);
+    return phoneNumbersList;
   }
 }

@@ -71,6 +71,17 @@
     result(@(true));
   } else if ([@"startSupportSDK" isEqualToString:call.method]) {
     
+    ZDKHelpCenterProvider *provider = [[ZDKHelpCenterProvider alloc] init];
+    
+      provider.getCategoriesWithCallback(ZDKHelpCenterCallback) callback {
+          
+          
+      }
+    
+      
+      
+    
+      
     UIViewController *helpCenter = [ZDKHelpCenterUi buildHelpCenterOverviewUiWithConfigs:@[]];
     UINavigationController *myNavigation = [[UINavigationController alloc] initWithRootViewController:helpCenter];
     [_viewController presentViewController:myNavigation animated:YES completion:nil];

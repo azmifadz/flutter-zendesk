@@ -43,9 +43,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> initSupportSDK() async {
     zendesk
         .initSupportSDK(
-            '<appId>',
-            '<clientId>',
-            '<url>')
+            '164024bb3f7a1f8ded81b96f41f812f30de94473458b7868',
+            'mobile_sdk_client_8590207922485f46dd2d',
+            'https://gogetmy.zendesk.com')
         .then((r) {
       print('init support sdk finished');
     }).catchError((e) {
@@ -86,9 +86,9 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
               RaisedButton(
-                child: Text('Start Chat'),
+                child: Text('test list`'),
                 onPressed: () async {
-                  zendesk.startChat().then((r) {
+                  zendesk.getList().then((r) {
                     print('startChat finished');
                   }).catchError((e) {
                     print('error $e');
@@ -99,6 +99,16 @@ class _MyAppState extends State<MyApp> {
                 child: Text('Start Support SDK'),
                 onPressed: () async {
                   zendesk.startSupportSDK().then((r) {
+                    print('startSupportSDK finished');
+                  }).catchError((e) {
+                    print('error $e');
+                  });
+                },
+              ),
+              RaisedButton(
+                child: Text('twets SDK'),
+                onPressed: () async {
+                  zendesk.handleListCallBack().then((r) {
                     print('startSupportSDK finished');
                   }).catchError((e) {
                     print('error $e');
